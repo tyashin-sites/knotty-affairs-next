@@ -1,0 +1,42 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Worker name. Suffix `-next` distinguishes the experimental build from the
+  // current Lovable-on-R2 deployment. At cutover Tyashin will point
+  // `projects.workerDeployment.scriptName` at this script.
+  "name": "site-knotty-affairs-next",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // Incremental Static Regeneration / fetch cache backing store. Without this
+  // every SSR'd page is recomputed on every request — adds ~2.5s TTFB from
+  // Canadian POPs (Mongo cold-connect to asia-south1) and ~1-2s from Indian
+  // POPs. With it, the first hit per URL is slow, all subsequent hits within
+  // the revalidation window are ~50ms from any POP.
+  "kv_namespaces": [
+    {
+      "binding": "NEXT_INC_CACHE_KV",
+      "id": "a963a73017bf4097928079c9dbf3e9eb"
+    }
+  ],
+  "vars": {
+    // Public storefront API base. The new site is a thin renderer over Tyashin's
+    // public e-commerce API — no DB / KV / R2 bindings on this Worker.
+    "TYASHIN_API_URL": "https://website-api.tyashin.com",
+    "TYASHIN_STOREFRONT_URL": "https://website-api.tyashin.com/api/v1/public/ecommerce",
+    "PROJECT_ID": "69dc76525f72612b58028164",
+    "PROJECT_SLUG": "knotty-affairs",
+    // Brand kit CSS is served by the platform (Tyashin-owned, locked). Loading
+    // it via <link> in layout.tsx means colour changes propagate without a redeploy.
+    "BRAND_KIT_CSS_URL": "https://website-api.tyashin.com/brand-kit.css",
+    // Robots gate — was "true" during the pre-cutover canary window. The site
+    // now serves the production host, so crawlers are allowed.
+    "ROBOTS_NOINDEX": "false"
+  }
+  // Secrets (set via the deploy.yml secrets-fetch step):
+  //   TYASHIN_API_KEY              — project's public X-API-Key (ak_AgJSxiU...)
+  //   (more added by Tyashin as plugins demand)
+}

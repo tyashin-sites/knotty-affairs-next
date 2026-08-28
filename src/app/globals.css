@@ -1,0 +1,157 @@
+/* Fonts are self-hosted via next/font (see src/app/layout.tsx) — NO render-
+   blocking Google Fonts @import here. next/font exposes --font-display and
+   --font-body as CSS variables, consumed below and by tailwind.config.ts. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Knotty Affairs design tokens — see docs/DESIGN-SPEC.md.
+ * "Romance, tailored for the city": ivory ground, ink text, dusty-rose accent
+ * (sampled from the logo hearts, ≈ #D9A0B8), plum depth, gold garnish.
+ *
+ * All values are RAW HSL TRIPLES (never wrapped in hsl()) so Tailwind's
+ * <alpha-value> substitution works — see tyashin-platform CLAUDE.md §5.
+ *
+ * Legacy token names from the scaffold are kept but RE-VALUED so ported
+ * transactional pages (cart/checkout/forms) restyle without class churn:
+ *   sage  → deep rose (action/confirm), cream → ivory tint, blush → blush.
+ */
+@layer base {
+  :root {
+    --background: 30 33% 98%; /* ivory #FBF9F6 */
+    --foreground: 326 12% 10%; /* ink #1D1519 */
+
+    --card: 30 30% 97%;
+    --card-foreground: 326 12% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 326 12% 10%;
+
+    /* Primary = ink (buttons, headers on light) */
+    --primary: 326 12% 12%;
+    --primary-foreground: 30 33% 98%;
+
+    /* Secondary = blush surface */
+    --secondary: 335 39% 94%;
+    --secondary-foreground: 326 12% 10%;
+
+    --muted: 330 18% 94%;
+    --muted-foreground: 326 8% 42%;
+
+    /* Accent = the logo-heart rose */
+    --accent: 335 43% 74%;
+    --accent-foreground: 326 12% 10%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 330 16% 89%;
+    --input: 330 16% 89%;
+    --ring: 332 34% 57%;
+
+    --radius: 0.75rem;
+
+    /* Brand extras */
+    --rose: 335 43% 74%; /* #D9A0B8 — hearts */
+    --rose-deep: 332 34% 57%; /* #B76E93 */
+    --plum: 326 28% 27%; /* #58324A */
+    --gold: 40 44% 58%; /* #C3A265 */
+    --gold-light: 40 48% 74%;
+
+    /* Legacy scaffold names, re-valued for Knotty Affairs */
+    --blush: 335 39% 94%; /* tinted band #F6E9EF */
+    --sage: 332 34% 47%; /* action/confirm — deep rose, AA on white text */
+    --cream: 32 30% 96%;
+
+    /* --font-display / --font-body are provided by next/font on <html>. */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: hsl(var(--rose) / 0.45);
+  }
+}
+
+@layer utilities {
+  /* Fine gold hairline used under section eyebrows and on category tiles. */
+  .hairline-gold {
+    background: linear-gradient(90deg, hsl(var(--gold)), hsl(var(--gold) / 0));
+    height: 1px;
+  }
+
+  /* Ivory-on-ink marquee ticker (signature component #2). CSS-only. */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Reveal-on-load (staggered ≤3 per DESIGN-SPEC motion tier). */
+  .reveal {
+    opacity: 0;
+    animation: rise 0.7s ease-out forwards;
+  }
+  .reveal-1 {
+    animation-delay: 0.08s;
+  }
+  .reveal-2 {
+    animation-delay: 0.18s;
+  }
+  .reveal-3 {
+    animation-delay: 0.3s;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Soft rose-tinted hover shadow for cards. */
+  .shadow-rose {
+    box-shadow: 0 18px 40px -18px hsl(335 43% 60% / 0.28);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .reveal {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
