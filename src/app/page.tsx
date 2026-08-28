@@ -23,9 +23,12 @@ export default async function HomePage() {
   let bestsellers: ApiProduct[] = [];
   let featured: ApiProduct[] = [];
   try {
+    // With a young catalog soldCount ties at 0 and both lists collapse onto the
+    // same newest products — split by creation order instead so every piece
+    // gets one slot on the home page (8 "bestsellers" + 4 "new in", no dupes).
     const [c, b, f] = await Promise.all([
       api.getCategories(),
-      api.getProducts({ limit: 8, sortBy: 'soldCount', sortOrder: 'desc' }),
+      api.getProducts({ limit: 8, sortBy: 'createdAt', sortOrder: 'asc' }),
       api.getProducts({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' }),
     ]);
     categories = c.data ?? [];

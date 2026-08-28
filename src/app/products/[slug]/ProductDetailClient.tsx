@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart, useStore, toast, toastError } from '@/components/Providers';
 import { formatPrice } from '@/lib/format';
+import { whatsappLink } from '@/lib/seo';
 import type { ApiProduct } from '@/lib/types';
 
 interface Props {
@@ -76,7 +77,7 @@ export default function ProductDetailClient({ product }: Props) {
     <>
       {/* Image gallery */}
       <div>
-        <div className="mb-4 aspect-square overflow-hidden rounded-lg bg-cream">
+        <div className="mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-cream">
           {product.images[selectedImage] ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -204,6 +205,17 @@ export default function ProductDetailClient({ product }: Props) {
         >
           {adding ? 'Adding…' : 'Add to Cart'}
         </button>
+
+        {/* WhatsApp ask-to-order — the brand answers sizing/styling personally
+            (DESIGN-SPEC PDP blueprint). Number from the central SITE config. */}
+        <a
+          href={whatsappLink(`Hi Knotty Affairs! I have a question about "${product.name}".`)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 block w-full rounded-full border border-sage py-3 text-center text-sm font-semibold uppercase tracking-wider text-sage transition-colors hover:bg-sage hover:text-primary-foreground"
+        >
+          Ask about this on WhatsApp
+        </a>
 
         {/* Description */}
         {product.description && (

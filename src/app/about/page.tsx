@@ -100,7 +100,7 @@ export default function AboutPage() {
                 {
                   Icon: Scissors,
                   title: 'Cut for real bodies',
-                  desc: 'Silhouettes designed around the modern Indian woman, sizes XS through 3XL.',
+                  desc: 'Silhouettes designed around the modern Indian woman — not the other way round.',
                 },
                 {
                   Icon: Sparkles,

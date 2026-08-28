@@ -1,8 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  // Worker name. Suffix `-next` distinguishes the experimental build from the
-  // current Lovable-on-R2 deployment. At cutover Tyashin will point
-  // `projects.workerDeployment.scriptName` at this script.
+  // Worker name. Registered as `projects.workerDeployment.scriptName` via /adopt.
   "name": "site-knotty-affairs-next",
   "main": ".open-next/worker.js",
   "compatibility_date": "2025-04-01",
@@ -19,7 +17,7 @@
   "kv_namespaces": [
     {
       "binding": "NEXT_INC_CACHE_KV",
-      "id": "a963a73017bf4097928079c9dbf3e9eb"
+      "id": "1d4bf814ccd6403c8c0d6326949ef1a3"
     }
   ],
   "vars": {
@@ -27,8 +25,8 @@
     // public e-commerce API — no DB / KV / R2 bindings on this Worker.
     "TYASHIN_API_URL": "https://website-api.tyashin.com",
     "TYASHIN_STOREFRONT_URL": "https://website-api.tyashin.com/api/v1/public/ecommerce",
-    "PROJECT_ID": "69dc76525f72612b58028164",
-    "PROJECT_SLUG": "knotty-affairs",
+    "PROJECT_ID": "6a9107c55814a1e374bebf28",
+    "PROJECT_SLUG": "mridul-website-mtcfb4tq",
     // Brand kit CSS is served by the platform (Tyashin-owned, locked). Loading
     // it via <link> in layout.tsx means colour changes propagate without a redeploy.
     "BRAND_KIT_CSS_URL": "https://website-api.tyashin.com/brand-kit.css",

@@ -11,7 +11,7 @@ const nextConfig = {
     NEXT_PUBLIC_TYASHIN_STOREFRONT_URL:
       process.env.TYASHIN_STOREFRONT_URL ||
       'https://website-api.tyashin.com/api/v1/public/ecommerce',
-    NEXT_PUBLIC_PROJECT_ID: process.env.PROJECT_ID || '69dc76525f72612b58028164',
+    NEXT_PUBLIC_PROJECT_ID: process.env.PROJECT_ID || '6a9107c55814a1e374bebf28',
     NEXT_PUBLIC_TYASHIN_API_URL: process.env.TYASHIN_API_URL || 'https://website-api.tyashin.com',
   },
   images: {
@@ -53,7 +53,7 @@ const nextConfig = {
     // they reach the Worker, so these rewrites are a no-op in that path.
     // They only matter for direct workers.dev / QA access.
     const STOREFRONT_ORIGIN =
-      process.env.TYASHIN_STOREFRONT_ORIGIN || 'https://onestophub.sites.tyashin.com';
+      process.env.TYASHIN_STOREFRONT_ORIGIN || 'https://mridul-website-mtcfb4tq.sites.tyashin.com';
     return [
       { source: '/brand-kit.css', destination: `${STOREFRONT_ORIGIN}/brand-kit.css` },
       { source: '/tyashin-runtime.js', destination: `${STOREFRONT_ORIGIN}/tyashin-runtime.js` },
@@ -63,7 +63,7 @@ const nextConfig = {
       // `Access-Control-Allow-Origin: *` so a same-origin rewrite works.
       {
         source: '/brand/:path*',
-        destination: `https://website-api.tyashin.com/api/v1/public/media/projects/tyashin-aditya-s-team-g8ijaf-onestophub/brand/:path*`,
+        destination: `https://website-api.tyashin.com/api/v1/public/media/projects/mridul-website-mtcfb4tq/brand/:path*`,
       },
       { source: '/sitemap.xml', destination: `${STOREFRONT_ORIGIN}/sitemap.xml` },
       { source: '/robots.txt', destination: `${STOREFRONT_ORIGIN}/robots.txt` },
