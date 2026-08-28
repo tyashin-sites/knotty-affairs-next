@@ -17,6 +17,8 @@
 import { getSessionId } from './session';
 import type {
   ApiEnvelope,
+  InstagramReel,
+  InstagramReelsMeta,
   ApiProduct,
   ApiCategory,
   ProductReviewsPayload,
@@ -261,6 +263,21 @@ export const api = {
       noSession: true,
       revalidate: 60,
     });
+  },
+
+  /**
+   * Approved Instagram reels (instagram-reels plugin). Returns [] when the
+   * plugin is not installed/enabled or nothing is approved — callers fall
+   * back to their static rendering, so the surface degrades gracefully.
+   */
+  getReels: (params: { placement?: 'home' | 'product'; product?: string; limit?: number } = {}) => {
+    const qs = new URLSearchParams(
+      Object.entries(params).map(([k, v]) => [k, String(v)]),
+    ).toString();
+    return publicFetch<InstagramReel[]>(`/instagram-reels${qs ? '?' + qs : ''}`, {
+      noSession: true,
+      revalidate: 300,
+    }) as Promise<ApiEnvelope<InstagramReel[]> & { meta?: InstagramReelsMeta }>;
   },
 
   getBlogPost: (slug: string) =>

@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { Heart, Scissors, Leaf, Sparkles, Instagram } from 'lucide-react';
+import { Heart, Scissors, Leaf, Sparkles } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SectionHeading from '@/components/SectionHeading';
 import ProductCard from '@/components/ProductCard';
+import ReelRail from '@/components/ReelRail';
 import { api } from '@/lib/api';
 import { getCategoryLandingHref } from '@/lib/category-routing';
 import { SITE, whatsappLink } from '@/lib/seo';
@@ -241,39 +242,9 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* ── Reel rail (signature #5) ─────────────────────────────────── */}
-        <section className="bg-blush/60 py-20 md:py-28">
-          <div className="container mx-auto px-4">
-            <SectionHeading
-              eyebrow="On the reel"
-              title="Follow the affair"
-              subtitle={`Fits, fabrics and behind-the-seams — ${SITE.instagramHandle}`}
-            />
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-              {['/reel-1.jpg', '/reel-2.jpg', '/reel-3.jpg', '/reel-4.jpg'].map((src, i) => (
-                <a
-                  key={src}
-                  href={SITE.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`group relative aspect-[9/16] overflow-hidden rounded-2xl border-4 border-background shadow-rose ${i % 2 === 1 ? 'md:translate-y-6' : ''}`}
-                  aria-label={`Open Knotty Affairs on Instagram (${SITE.instagramHandle})`}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={src}
-                    alt="Knotty Affairs look on Instagram"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
-                    <Instagram className="h-7 w-7 text-white opacity-0 transition-opacity group-hover:opacity-100" />
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ── Reel rail (signature #5) — live reels via the instagram-reels
+            plugin, static tiles as fallback (see ReelRail) ─────────────── */}
+        <ReelRail />
 
         {/* ── Promise strip (signature #6) ─────────────────────────────── */}
         <section className="border-t border-border bg-background py-16 md:py-20">

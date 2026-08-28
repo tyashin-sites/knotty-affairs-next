@@ -267,3 +267,20 @@ export interface BlogCategory {
   parentId?: string | null;
   order?: number;
 }
+
+/** Approved Instagram reel served by the instagram-reels plugin's public API. */
+export interface InstagramReel {
+  _id: string;
+  reelId: string;
+  url: string;
+  embedUrl: string;
+  caption?: string;
+  credit?: string;
+  placements: string[];
+  productIds?: string[];
+}
+
+export interface InstagramReelsMeta {
+  campaign?: { enabled: boolean; headline?: string };
+  instagramHandle?: string;
+}

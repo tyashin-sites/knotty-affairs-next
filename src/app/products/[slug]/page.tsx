@@ -6,6 +6,7 @@ import Breadcrumbs, { type Crumb } from '@/components/Breadcrumbs';
 import DeliveryReturns from '@/components/DeliveryReturns';
 import RelatedProducts from '@/components/RelatedProducts';
 import ReviewsSection from '@/components/ReviewsSection';
+import ProductReels from '@/components/ProductReels';
 import ProductDetailClient from './ProductDetailClient';
 import { api, ApiError } from '@/lib/api';
 import { getCategoryLandingHref } from '@/lib/category-routing';
@@ -243,6 +244,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
           {/* Shipping + returns facts (mirrors the Offer JSON-LD fields) */}
           <DeliveryReturns />
+
+          {/* UGC: approved Instagram reels linked to this product (renders
+              nothing when the instagram-reels plugin has none approved) */}
+          <ProductReels productId={product._id} />
 
           {/* Customer reviews — hidden until the store enables display */}
           <ReviewsSection productId={product._id} />
