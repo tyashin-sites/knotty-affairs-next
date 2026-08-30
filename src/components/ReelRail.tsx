@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Instagram } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 import ReelEmbed from './ReelEmbed';
@@ -117,6 +118,17 @@ export default async function ReelRail() {
                 </div>
               </a>
             ))}
+          </div>
+        )}
+
+        {reels.length > 0 && meta.reelsPageEnabled && (
+          <div className="mt-10 text-center">
+            <Link
+              href="/reels"
+              className="inline-block rounded-full border border-primary px-8 py-3 text-sm font-medium uppercase tracking-[0.14em] text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+            >
+              View All Reels
+            </Link>
           </div>
         )}
 

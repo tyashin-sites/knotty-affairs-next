@@ -56,13 +56,19 @@ export const useCart = () => {
  * `app/layout.tsx` so every route can read store/category/cart state without
  * each page re-fetching.
  */
+const ReelsLinkContext = createContext<boolean>(false);
+/** True when the platform-served /reels page is enabled for this project. */
+export const useReelsPageEnabled = () => useContext(ReelsLinkContext);
+
 export function Providers({
   initialStore,
   initialCategories,
+  reelsPageEnabled = false,
   children,
 }: {
   initialStore: StoreInfo | null;
   initialCategories: ApiCategory[];
+  reelsPageEnabled?: boolean;
   children: ReactNode;
 }) {
   const [store, setStore] = useState<StoreInfo | null>(initialStore);
@@ -133,6 +139,7 @@ export function Providers({
   const itemCount = cart?.items.reduce((sum, i) => sum + i.quantity, 0) ?? 0;
 
   return (
+    <ReelsLinkContext.Provider value={reelsPageEnabled}>
     <StoreContext.Provider value={{ store, loading: storeLoading }}>
       <CategoryContext.Provider value={{ categories, loading: catLoading }}>
         <CartContext.Provider
@@ -174,6 +181,7 @@ export function Providers({
         </CartContext.Provider>
       </CategoryContext.Provider>
     </StoreContext.Provider>
+    </ReelsLinkContext.Provider>
   );
 }
 

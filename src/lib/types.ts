@@ -281,6 +281,7 @@ export interface InstagramReel {
 }
 
 export interface InstagramReelsMeta {
+  reelsPageEnabled?: boolean;
   campaign?: { enabled: boolean; headline?: string; allowSubmissions?: boolean };
   instagramHandle?: string;
 }

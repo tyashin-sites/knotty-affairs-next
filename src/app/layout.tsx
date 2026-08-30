@@ -74,10 +74,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // labels and the footer renders categories without a client round-trip.
   let initialStore: StoreInfo | null = null;
   let initialCategories: ApiCategory[] = [];
+  let reelsPageEnabled = false;
   try {
-    const [s, c] = await Promise.all([api.getStoreInfo(), api.getCategories()]);
+    const [s, c, r] = await Promise.all([
+      api.getStoreInfo(),
+      api.getCategories(),
+      // Cheap (limit 1, 300s-cached) — meta tells us whether the platform's
+      // /reels page is on, so footer/rail links never point at a 404.
+      api.getReels({ placement: 'home', limit: 1 }).catch(() => null),
+    ]);
     initialStore = s.data;
     initialCategories = c.data ?? [];
+    reelsPageEnabled = (r?.meta as { reelsPageEnabled?: boolean } | undefined)?.reelsPageEnabled === true;
   } catch (err) {
     console.error('[layout] seed fetch failed:', err);
   }
@@ -114,7 +122,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         className="bg-background text-foreground antialiased overflow-x-clip"
         style={{ backgroundColor: '#FBF9F6' }}
       >
-        <Providers initialStore={initialStore} initialCategories={initialCategories}>
+        <Providers
+          initialStore={initialStore}
+          initialCategories={initialCategories}
+          reelsPageEnabled={reelsPageEnabled}
+        >
           {children}
           <LegalFooterBar />
         </Providers>

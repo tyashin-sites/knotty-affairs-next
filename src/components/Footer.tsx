@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Instagram, Heart } from 'lucide-react';
-import { useCategories } from './Providers';
+import { useCategories, useReelsPageEnabled } from './Providers';
 import { getCategoryLandingHref } from '@/lib/category-routing';
 import { SITE, whatsappLink } from '@/lib/seo';
 
@@ -17,6 +17,7 @@ import { SITE, whatsappLink } from '@/lib/seo';
  */
 export default function Footer() {
   const { categories } = useCategories();
+  const reelsPageEnabled = useReelsPageEnabled();
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -44,6 +45,9 @@ export default function Footer() {
                 { label: 'Shop All', href: '/products' },
                 { label: 'Our Story', href: '/about' },
                 { label: 'Blog', href: '/blog' },
+                // Platform-served /reels gallery — linked only while enabled
+                // (no ghost links when the admin switches it off).
+                ...(reelsPageEnabled ? [{ label: 'Reels', href: '/reels' }] : []),
                 { label: 'Contact', href: '/contact' },
                 { label: 'FAQ', href: '/faq' },
                 { label: 'Privacy Policy', href: '/privacy-policy' },
