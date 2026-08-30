@@ -17,6 +17,7 @@
 | 8 | About-page story written from the brief only | Founder's own origin-story details, quotes | Deeper About content |
 | 9 | No real testimonials shown (by design — No-Faking) | Real customer reviews once orders flow | Social-proof sections |
 | 10 | Hero/editorial imagery AI-generated from the placeholder products | Real campaign/product photography | Brand launch quality bar |
+| 10b | Two stock placeholders still feature non-Indian models (Sunday Brunch Co-ord, Amara Wrap Dress) — no credible Indian-model co-ord/wrap-dress stock found 2026-08-30; Muse/Metro/Fleur swapped to Indian-model shots | Real product photography (replaces all stock 1:1) | Brand launch quality bar |
 | 11 | Size guide generic (XS–3XL ranges) | Brand's real measurement chart | Size-guide accuracy |
 | 12 | Domain DNS not yet pointed (platform side configured) | Records below added in Hostinger hPanel (domain is parked there; its DNS runs on Cloudflare nameservers) | knottyaffairsbymridul.com go-live |
 

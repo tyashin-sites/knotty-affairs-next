@@ -1,6 +1,7 @@
 import { Instagram } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 import ReelEmbed from './ReelEmbed';
+import ReelSubmitForm from './ReelSubmitForm';
 import { api } from '@/lib/api';
 import { SITE } from '@/lib/seo';
 import type { InstagramReel, InstagramReelsMeta } from '@/lib/types';
@@ -84,6 +85,7 @@ export default async function ReelRail() {
             {campaign}
           </p>
         )}
+        {meta.campaign?.enabled && meta.campaign.allowSubmissions && <ReelSubmitForm />}
       </div>
     </section>
   );
