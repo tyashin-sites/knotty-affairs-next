@@ -1,7 +1,7 @@
 interface SectionHeadingProps {
   eyebrow: string;
   title: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
 }
 
 export default function SectionHeading({ eyebrow, title, subtitle }: SectionHeadingProps) {

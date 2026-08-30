@@ -27,9 +27,38 @@ export default async function ReelRail() {
     // plugin absent / API hiccup → static fallback below
   }
 
-  const campaign = meta.campaign?.enabled
-    ? meta.campaign.headline ||
-      `Tag ${SITE.instagramHandle} in your reel for a chance to get featured here`
+  const handle = (meta.instagramHandle || SITE.instagramHandle).replace(/^@/, '');
+  const profileUrl = `https://www.instagram.com/${handle}/`;
+
+  /**
+   * Campaign copy with every "@handle" mention rendered as a follow link —
+   * one tap from "get featured" to following the brand. Works for the default
+   * line and for custom headlines that mention the handle anywhere.
+   */
+  const renderCampaignText = (text: string) => {
+    const token = `@${handle}`;
+    const parts = text.split(token);
+    if (parts.length === 1) return text;
+    return parts.flatMap((part, i) =>
+      i === 0
+        ? [part]
+        : [
+            <a
+              key={i}
+              href={profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-rose-deep underline-offset-2 hover:underline"
+            >
+              {token}
+            </a>,
+            part,
+          ],
+    );
+  };
+
+  const campaignText = meta.campaign?.enabled
+    ? meta.campaign.headline || `Tag @${handle} in your reel for a chance to get featured here`
     : null;
 
   return (
@@ -38,7 +67,19 @@ export default async function ReelRail() {
         <SectionHeading
           eyebrow="On the reel"
           title="Follow the affair"
-          subtitle={`Fits, fabrics and behind-the-seams — ${SITE.instagramHandle}`}
+          subtitle={
+            <>
+              Fits, fabrics and behind-the-seams —{' '}
+              <a
+                href={profileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-rose-deep underline-offset-2 hover:underline"
+              >
+                @{handle}
+              </a>
+            </>
+          }
         />
 
         {reels.length > 0 ? (
@@ -79,10 +120,10 @@ export default async function ReelRail() {
           </div>
         )}
 
-        {campaign && (
+        {campaignText && (
           <p className="mx-auto mt-10 max-w-xl text-center text-sm text-muted-foreground">
             <Instagram className="mr-1.5 inline h-4 w-4 -translate-y-px text-rose-deep" aria-hidden />
-            {campaign}
+            {renderCampaignText(campaignText)}
           </p>
         )}
         {meta.campaign?.enabled && meta.campaign.allowSubmissions && <ReelSubmitForm />}
