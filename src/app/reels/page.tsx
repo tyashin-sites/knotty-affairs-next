@@ -112,7 +112,7 @@ export default async function ReelsPage() {
             ) : (
               <div className="flex flex-wrap items-start justify-center gap-6">
                 {reels.map((reel) => (
-                  <div key={reel._id} className="w-[330px]">
+                  <div key={reel._id} className="w-[min(85vw,400px)]">
                     <ReelEmbed href={reel.url} caption={reel.caption} />
                   </div>
                 ))}
