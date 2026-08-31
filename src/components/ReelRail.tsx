@@ -84,13 +84,13 @@ export default async function ReelRail() {
         />
 
         {reels.length > 0 ? (
-          /* Instagram embeds lay their header out comfortably around 400px
-             (min 326, max 540) — every card gets a fixed slot: horizontal
-             snap rail on mobile, centered wrap on desktop (heights vary per
-             reel; that's the medium). */
+          /* Instagram embeds render best at their 540px maximum — long
+             co-author titles in THEIR header truncate cleanly with the extra
+             room. Fixed slots: horizontal snap rail on mobile, centered wrap
+             on desktop (heights vary per reel; that's the medium). */
           <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 md:mx-0 md:flex-wrap md:items-start md:justify-center md:gap-6 md:overflow-visible md:px-0 md:pb-0">
             {reels.map((reel) => (
-              <div key={reel._id} className="w-[min(85vw,400px)] shrink-0 snap-start">
+              <div key={reel._id} className="w-[min(92vw,540px)] shrink-0 snap-start">
                 <ReelEmbed href={reel.url} caption={reel.caption} />
               </div>
             ))}
