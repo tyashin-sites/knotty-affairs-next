@@ -25,9 +25,11 @@ export default async function ProductReels({ productId }: { productId: string })
       <h2 className="mb-8 text-center font-display text-2xl font-medium md:text-3xl">
         How it&apos;s really worn
       </h2>
-      <div className="mx-auto grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="flex flex-wrap items-start justify-center gap-6">
         {reels.map((reel) => (
-          <ReelEmbed key={reel._id} embedUrl={reel.embedUrl} href={reel.url} caption={reel.caption} />
+          <div key={reel._id} className="w-[330px]">
+            <ReelEmbed href={reel.url} caption={reel.caption} />
+          </div>
         ))}
       </div>
     </section>

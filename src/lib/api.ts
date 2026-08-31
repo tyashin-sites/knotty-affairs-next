@@ -270,7 +270,7 @@ export const api = {
    * plugin is not installed/enabled or nothing is approved — callers fall
    * back to their static rendering, so the surface degrades gracefully.
    */
-  getReels: (params: { placement?: 'home' | 'product'; product?: string; limit?: number } = {}) => {
+  getReels: (params: { placement?: 'home' | 'product' | 'all'; product?: string; limit?: number } = {}) => {
     const qs = new URLSearchParams(
       Object.entries(params).map(([k, v]) => [k, String(v)]),
     ).toString();

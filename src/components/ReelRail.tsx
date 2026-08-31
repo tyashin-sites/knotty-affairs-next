@@ -84,17 +84,13 @@ export default async function ReelRail() {
         />
 
         {reels.length > 0 ? (
-          /* Mobile: horizontal snap rail (~280px cards keep IG embeds legible);
-             md+: the 4-up grid. */
-          <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 md:mx-0 md:grid md:grid-cols-4 md:gap-6 md:overflow-visible md:px-0 md:pb-0">
+          /* Instagram embeds want ≥326px of width — every card gets a fixed
+             ~330px slot: horizontal snap rail on mobile, centered wrap on
+             desktop (heights vary per reel; that's the medium). */
+          <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 md:mx-0 md:flex-wrap md:items-start md:justify-center md:gap-6 md:overflow-visible md:px-0 md:pb-0">
             {reels.map((reel, i) => (
-              <div key={reel._id} className="w-[280px] shrink-0 snap-start md:w-auto">
-                <ReelEmbed
-                  embedUrl={reel.embedUrl}
-                  href={reel.url}
-                  caption={reel.caption}
-                  offset={i % 2 === 1}
-                />
+              <div key={reel._id} className="w-[330px] shrink-0 snap-start">
+                <ReelEmbed href={reel.url} caption={reel.caption} offset={i % 2 === 1} />
               </div>
             ))}
           </div>
