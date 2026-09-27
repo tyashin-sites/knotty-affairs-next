@@ -7,8 +7,8 @@
 
 | # | Placeholder | Real input needed | Blocks |
 |---|---|---|---|
-| 1 | 12 products (2/category) with AI-generated images & invented styles | Real catalog: names, fabrics, sizes, SKUs, photos | Ads/press push; catalog truthfulness |
-| 2 | Product prices (plausible INR, flagged) | Real price list from Mridul | Any real order |
+| 1 | ~~12 placeholder products~~ RETIRED to draft 2026-09-27 — 16 REAL products created from Mridul's 18 studio/lookbook photos (Drive folder). Names/colours are ours (creative, from the photos); descriptions describe only what is visible | Confirm names; fabric composition; size run; SKUs if the brand has its own | Product-page detail |
+| 2 | Prices unknown → all 16 real products carry **price 0 = "Price on request"** (card + PDP show WhatsApp enquiry, no add-to-cart, no ₹0 schema Offer) | Real price list from Mridul → set `price` per product and the cart/checkout path re-enables automatically | Online ordering |
 | 3 | Payment gateway not configured (WhatsApp/COD ordering only) | Razorpay keys + COD policy decision | Online card/UPI payments |
 | 4 | Shipping zones/rates defaulted (free-shipping copy avoided) | Real shipping rates & dispatch SLA | Checkout accuracy |
 | 5 | Business email absent from site (WhatsApp/IG only) | Real business email | Contact page email, schema |
@@ -16,8 +16,8 @@
 | 7 | Tyashin account login provisioned by agency | Customer's own email on the account | Account handover |
 | 8 | About-page story written from the brief only | Founder's own origin-story details, quotes | Deeper About content |
 | 9 | No real testimonials shown (by design — No-Faking) | Real customer reviews once orders flow | Social-proof sections |
-| 10 | Hero/editorial imagery AI-generated from the placeholder products | Real campaign/product photography | Brand launch quality bar |
-| 10b | Two stock placeholders still feature non-Indian models (Sunday Brunch Co-ord, Amara Wrap Dress) — no credible Indian-model co-ord/wrap-dress stock found 2026-08-30; Muse/Metro/Fleur swapped to Indian-model shots | Real product photography (replaces all stock 1:1) | Brand launch quality bar |
+| 10 | Hero/reel-fallback imagery on the home page still uses the old AI/stock placeholders (`/hero-1.jpg`, `/hero-2.jpg`, `/reel-*.jpg`, `/og-default.jpg`) | Swap to crops of the real lookbook photos (now in the media library) | Home hero authenticity |
+| 10b | ~~Non-Indian-model stock placeholders~~ — resolved by retiring all placeholder products (draft) on 2026-09-27 | — | — |
 | 11 | Size guide generic (XS–3XL ranges) | Brand's real measurement chart | Size-guide accuracy |
 | 12 | Domain DNS not yet pointed (platform side configured) | Records below added in Hostinger hPanel (domain is parked there; its DNS runs on Cloudflare nameservers) | knottyaffairsbymridul.com go-live |
 
@@ -33,3 +33,5 @@
 Delete the existing parked-page A/CNAME records for `@` and `www` first. SSL issues
 automatically once the records resolve (platform polls). After the domain shows
 `active`: install SEO Co-Pilot with `config.phone = +917838040976`.
+
+| 13 | Pants category set inactive (no real pants in the catalog yet); 2 Drive files are Sony `.ARW` raws (DSC06543, DSC06592) with no preview — not usable as-is | Pants products / JPEG exports of the two raws | Pants category, 2 more looks |

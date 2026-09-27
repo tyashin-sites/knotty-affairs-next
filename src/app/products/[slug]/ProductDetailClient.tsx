@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart, useStore, toast, toastError } from '@/components/Providers';
-import { formatPrice } from '@/lib/format';
+import { formatPrice, isPriceOnRequest, PRICE_ON_REQUEST_LABEL } from '@/lib/format';
 import { whatsappLink } from '@/lib/seo';
 import type { ApiProduct } from '@/lib/types';
 
@@ -45,6 +45,8 @@ export default function ProductDetailClient({ product }: Props) {
         )
       : 0;
   const totalWithTax = taxInclusive ? displayPrice : displayPrice + taxAmount;
+  // Price-on-request products: no ₹0 tax line, no cart — WhatsApp enquiry only.
+  const onRequest = isPriceOnRequest(product);
 
   // Group variants by option-key (size, colour, etc.).
   const optionGroups = useMemo(() => {
@@ -115,7 +117,7 @@ export default function ProductDetailClient({ product }: Props) {
 
         <div className="mt-4 flex items-center gap-3">
           <span className="text-2xl font-bold text-primary">
-            {formatPrice(displayPrice, currency)}
+            {onRequest ? PRICE_ON_REQUEST_LABEL : formatPrice(displayPrice, currency)}
           </span>
           {product.compareAtPrice && product.compareAtPrice > displayPrice && (
             <span className="text-lg text-muted-foreground line-through">
@@ -124,7 +126,7 @@ export default function ProductDetailClient({ product }: Props) {
           )}
         </div>
 
-        {taxName && taxRate > 0 &&
+        {!onRequest && taxName && taxRate > 0 &&
           (taxInclusive ? (
             <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
               <span className="font-medium text-sage">Inclusive of all taxes</span>
@@ -179,6 +181,7 @@ export default function ProductDetailClient({ product }: Props) {
           ))}
 
         {/* Quantity */}
+        {!onRequest && (
         <div className="mt-6">
           <label className="text-xs uppercase tracking-wider text-muted-foreground">Quantity</label>
           <div className="mt-2 flex items-center gap-3">
@@ -198,6 +201,9 @@ export default function ProductDetailClient({ product }: Props) {
           </div>
         </div>
 
+        )}
+
+        {!onRequest && (
         <button
           onClick={handleAdd}
           disabled={adding}
@@ -205,16 +211,25 @@ export default function ProductDetailClient({ product }: Props) {
         >
           {adding ? 'Adding…' : 'Add to Cart'}
         </button>
+        )}
 
         {/* WhatsApp ask-to-order — the brand answers sizing/styling personally
             (DESIGN-SPEC PDP blueprint). Number from the central SITE config. */}
         <a
-          href={whatsappLink(`Hi Knotty Affairs! I have a question about "${product.name}".`)}
+          href={whatsappLink(
+            onRequest
+              ? `Hi Knotty Affairs! I'd like the price and sizes for "${product.name}".`
+              : `Hi Knotty Affairs! I have a question about "${product.name}".`,
+          )}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 block w-full rounded-full border border-sage py-3 text-center text-sm font-semibold uppercase tracking-wider text-sage transition-colors hover:bg-sage hover:text-primary-foreground"
+          className={
+            onRequest
+              ? 'mt-8 block w-full rounded-full bg-primary py-3 text-center text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-plum'
+              : 'mt-3 block w-full rounded-full border border-sage py-3 text-center text-sm font-semibold uppercase tracking-wider text-sage transition-colors hover:bg-sage hover:text-primary-foreground'
+          }
         >
-          Ask about this on WhatsApp
+          {onRequest ? 'Enquire price & sizes on WhatsApp' : 'Ask about this on WhatsApp'}
         </a>
 
         {/* Description */}

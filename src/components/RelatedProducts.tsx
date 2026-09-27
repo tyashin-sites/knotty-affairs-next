@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import SectionHeading from '@/components/SectionHeading';
 import { api } from '@/lib/api';
-import { formatPrice } from '@/lib/format';
+import { formatPrice, PRICE_ON_REQUEST_LABEL } from '@/lib/format';
 import type { RelatedProduct } from '@/lib/types';
 
 /**
@@ -63,7 +63,7 @@ export default async function RelatedProducts({ slug }: { slug: string }) {
               <div className="mt-1 flex items-baseline gap-2">
                 {typeof p.price === 'number' && (
                   <span className="text-sm font-semibold text-foreground">
-                    {formatPrice(p.price)}
+                    {p.price > 0 ? formatPrice(p.price) : PRICE_ON_REQUEST_LABEL}
                   </span>
                 )}
                 {typeof p.compareAtPrice === 'number' && p.compareAtPrice > (p.price ?? 0) && (

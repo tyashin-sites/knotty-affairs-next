@@ -183,7 +183,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     image: product.images.map((i) => i.url).filter(Boolean),
     sku: product.sku || undefined,
     brand: { '@type': 'Brand', name: 'Knotty Affairs by Mridul' },
-    offers: {
+    ...(product.price > 0 ? { offers: {
       '@type': 'Offer',
       price: (product.price / 100).toFixed(2),
       priceCurrency: currency,
@@ -192,7 +192,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         : 'https://schema.org/OutOfStock',
       url: `https://www.knottyaffairsbymridul.com/products/${product.slug}`,
       ...merchantListingFields(storeInfo),
-    },
+    } } : {}), // price-on-request products publish no Offer (never a ₹0 rich result)
     ...(reviewStats && reviewStats.totalReviews > 0
       ? {
           aggregateRating: {

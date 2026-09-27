@@ -17,3 +17,14 @@ export function formatPrice(amountInSmallestUnit: number, currency = 'INR'): str
 export function cn(...classes: Array<string | false | null | undefined>): string {
   return classes.filter(Boolean).join(' ');
 }
+
+
+/**
+ * Price-on-request convention: a product with price 0 has no published price
+ * yet. Every price surface renders "Price on request" and swaps Add-to-cart
+ * for a WhatsApp enquiry instead of showing ₹0 or letting a ₹0 order through.
+ */
+export function isPriceOnRequest(product: { price: number }): boolean {
+  return !product.price || product.price <= 0;
+}
+export const PRICE_ON_REQUEST_LABEL = 'Price on request';

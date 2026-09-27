@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Minus, Plus } from 'lucide-react';
 import { useCart, useStore, toast, toastError } from './Providers';
-import { formatPrice } from '@/lib/format';
+import { formatPrice, isPriceOnRequest, PRICE_ON_REQUEST_LABEL } from '@/lib/format';
+import { whatsappLink } from '@/lib/seo';
 import { optimizedSrc, imgSrcSet, PRODUCT_CARD_SIZES } from '@/lib/img';
 import type { ApiProduct } from '@/lib/types';
 
@@ -131,6 +132,23 @@ export default function ProductCard({ product }: { product: ApiProduct }) {
           </p>
         </div>
 
+        {isPriceOnRequest(product) ? (
+          <div className="mt-3">
+            <p className="text-sm font-medium uppercase tracking-[0.12em] text-rose-deep">
+              {PRICE_ON_REQUEST_LABEL}
+            </p>
+            <a
+              href={whatsappLink(`Hi Knotty Affairs! I'd like the price and sizes for "${product.name}".`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="mt-3 block w-full rounded-full bg-primary py-2 text-center text-xs font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-plum"
+            >
+              Enquire on WhatsApp
+            </a>
+          </div>
+        ) : (
+          <>
         <div className="mt-3">
           <div className="flex items-center gap-2">
             <span className="text-lg font-bold text-primary">
@@ -185,6 +203,8 @@ export default function ProductCard({ product }: { product: ApiProduct }) {
             {adding ? 'Adding…' : `Add ${quantity > 1 ? quantity : ''} to Cart`.trim()}
           </button>
         </div>
+          </>
+        )}
       </div>
     </div>
   );
