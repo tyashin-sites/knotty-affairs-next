@@ -41,11 +41,12 @@ export const metadata: Metadata = {
   // pageMetadata output) resolve to an absolute https://www.<domain> URL.
   metadataBase: new URL(siteUrl('/')),
   title: {
-    default: 'Knotty Affairs by Mridul — Designer Tops, Shirts & Co-ord Sets for Women',
+    // ≤65 chars / ≤160 chars — SERP truncation limits flagged by the SEO audit.
+    default: 'Knotty Affairs by Mridul — Designer Tops, Shirts & Co-ords',
     template: '%s · Knotty Affairs by Mridul',
   },
   description:
-    'Knotty Affairs by Mridul — sustainable designer womenswear tailored for the modern Indian silhouette. Tops, shirts, co-ord sets, dresses and more. Shipping across India.',
+    'Sustainable designer womenswear tailored for the modern Indian silhouette — tops, shirts, co-ord sets, dresses and blazers. Shipping across India.',
   alternates: { canonical: siteUrl('/') },
   robots: ROBOTS_NOINDEX
     ? { index: false, follow: false, googleBot: { index: false, follow: false } }

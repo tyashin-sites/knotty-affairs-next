@@ -80,20 +80,12 @@ function merchantListingFields(info?: StoreInfo): Record<string, unknown> {
   return out;
 }
 
-// Pre-render every product at build → product pages open instantly from cache
-// instead of an on-demand SSR round-trip. ISR keeps prices/stock fresh;
-// dynamicParams lets new products render on first hit then cache.
-export const revalidate = 60;
-export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  try {
-    const res = await api.getProducts({ limit: 200 });
-    return (res.data ?? []).map((p: { slug: string }) => ({ slug: p.slug }));
-  } catch {
-    return [];
-  }
-}
+// Rendered per request, NOT prerendered: a product retired to draft must
+// answer a real 404, and a prerendered ISR entry that later hits notFound()
+// kept serving the not-found body with HTTP 200 on OpenNext (observed
+// 2026-09-28, tyashin-platform CLAUDE.md §12g). Speed comes from the Next
+// fetch data cache instead — every api.* call below carries `revalidate`.
+export const dynamic = 'force-dynamic';
 
 /* ------------------------------------------------------------------ */
 /*  Metadata + JSON-LD                                                 */
