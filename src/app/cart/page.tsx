@@ -14,11 +14,6 @@ export default function CartPage() {
   const { store } = useStore();
   const [couponInput, setCouponInput] = useState('');
   const [couponLoading, setCouponLoading] = useState(false);
-  /**
-   * "Special order instructions" — synced with the checkout page via
-   * localStorage (`tyashin_order_note`). Initialized empty so SSR matches
-   * the first client render; populated in the effect below.
-   */
   const [note, setNote] = useState('');
 
   useEffect(() => {
@@ -28,7 +23,6 @@ export default function CartPage() {
       setNote(next);
     };
     window.addEventListener(ORDER_NOTE_EVENT, onExternalChange);
-    // Cross-tab updates: storage events fire on tabs that did NOT do the write.
     const onStorage = (e: StorageEvent) => {
       if (e.key === 'tyashin_order_note') setNote(e.newValue ?? '');
     };
@@ -42,8 +36,6 @@ export default function CartPage() {
   const onNoteChange = (value: string) => {
     setNote(value);
     setOrderNote(value);
-    // Tell the checkout page (open in another tab or already mounted) to
-    // refresh its initial form value. Same-tab listeners pick this up too.
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent(ORDER_NOTE_EVENT, { detail: value }));
     }
@@ -156,13 +148,6 @@ export default function CartPage() {
                     </div>
                   ))}
 
-                  {/*
-                   * Special order instructions — synced with the checkout
-                   * page via localStorage. Editing here updates the value on
-                   * /checkout (and vice-versa); the note is sent with the
-                   * order payload and surfaced in the merchant's WhatsApp
-                   * message when paying that way.
-                   */}
                   <div className="rounded-lg border border-border bg-background p-4">
                     <label
                       htmlFor="order-note"
