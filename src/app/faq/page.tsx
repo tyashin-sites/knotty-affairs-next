@@ -11,21 +11,27 @@ export const metadata = pageMetadata({
 interface FaqEntry {
   _id: string;
   question: string;
-  answer: string;
+  /** HTML answer (admin RTE). The public route names it `body`, not `answer`. */
+  body: string;
+  category?: string;
   order?: number;
 }
 
-const PROJECT_ID = process.env.PROJECT_ID || '69dc76525f72612b58028164';
+const PROJECT_ID = process.env.PROJECT_ID || '6a9107c55814a1e374bebf28';
 const API_URL = process.env.TYASHIN_API_URL || 'https://website-api.tyashin.com';
 
 async function loadFaqs(): Promise<FaqEntry[]> {
   try {
-    const res = await fetch(`${API_URL}/api/v1/public/faq?projectId=${PROJECT_ID}`, {
+    // The FAQ store is the e-commerce FAQ collection; its public route lives
+    // under /public/ecommerce/faq (project resolved from the API key) and
+    // returns { entries, grouped }. `/public/faq` does not exist (404).
+    const res = await fetch(`${API_URL}/api/v1/public/ecommerce/faq?projectId=${PROJECT_ID}`, {
       headers: { 'X-API-Key': process.env.TYASHIN_API_KEY || '' },
       next: { revalidate: 300 },
     });
-    const json = (await res.json()) as { success: boolean; data?: FaqEntry[] };
-    return json.success ? json.data ?? [] : [];
+    const json = (await res.json()) as { success: boolean; data?: { entries?: FaqEntry[] } | FaqEntry[] };
+    if (!json.success || !json.data) return [];
+    return Array.isArray(json.data) ? json.data : (json.data.entries ?? []);
   } catch (err) {
     console.error('[faq]', err);
     return [];
@@ -43,7 +49,7 @@ export default async function FaqPage() {
         mainEntity: faqs.map((f) => ({
           '@type': 'Question',
           name: f.question,
-          acceptedAnswer: { '@type': 'Answer', text: f.answer },
+          acceptedAnswer: { '@type': 'Answer', text: f.body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() },
         })),
       }
     : null;
@@ -85,7 +91,7 @@ export default async function FaqPage() {
                     </summary>
                     <div
                       className="mt-3 text-sm leading-relaxed text-muted-foreground"
-                      dangerouslySetInnerHTML={{ __html: f.answer }}
+                      dangerouslySetInnerHTML={{ __html: f.body }}
                     />
                   </details>
                 ))}
@@ -98,7 +104,7 @@ export default async function FaqPage() {
       {jsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
         />
       )}
     </div>
