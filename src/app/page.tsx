@@ -85,7 +85,7 @@ export default async function HomePage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/hero-1.jpg"
-                  alt="Knotty Affairs signature look — designer top in soft rose"
+                  alt="Mira Lilac Butterfly Shirt — Knotty Affairs by Mridul"
                   className="h-full w-full object-cover"
                   width={900}
                   height={1200}
@@ -98,7 +98,7 @@ export default async function HomePage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/hero-2.jpg"
-                  alt="Co-ord set detail"
+                  alt="Ahana Ivory Bloom Shirt, embroidery detail"
                   className="h-full w-full object-cover"
                   width={600}
                   height={750}

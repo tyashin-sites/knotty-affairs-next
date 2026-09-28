@@ -16,7 +16,7 @@
 | 7 | Tyashin account login provisioned by agency | Customer's own email on the account | Account handover |
 | 8 | About-page story written from the brief only | Founder's own origin-story details, quotes | Deeper About content |
 | 9 | No real testimonials shown (by design — No-Faking) | Real customer reviews once orders flow | Social-proof sections |
-| 10 | Hero/reel-fallback imagery on the home page still uses the old AI/stock placeholders (`/hero-1.jpg`, `/hero-2.jpg`, `/reel-*.jpg`, `/og-default.jpg`) | Swap to crops of the real lookbook photos (now in the media library) | Home hero authenticity |
+| 10 | ~~Hero/reel-fallback/OG imagery~~ — DONE 2026-09-27: all crops of the real lookbook photos (Mira, Ahana, Suhani, Naina, Diya, Anaya, Ishani) | — | — |
 | 10b | ~~Non-Indian-model stock placeholders~~ — resolved by retiring all placeholder products (draft) on 2026-09-27 | — | — |
 | 11 | Size guide generic (XS–3XL ranges) | Brand's real measurement chart | Size-guide accuracy |
 | 12 | ~~Domain DNS~~ — DONE: www.knottyaffairsbymridul.com live on the platform (cut over ~2026-08-31) | SEO Co-Pilot install with `config.phone` if not yet done | SEO surface |
