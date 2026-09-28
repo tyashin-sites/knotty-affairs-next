@@ -19,7 +19,7 @@
 | 10 | ~~Hero/reel-fallback/OG imagery~~ — DONE 2026-09-27: all crops of the real lookbook photos (Mira, Ahana, Suhani, Naina, Diya, Anaya, Ishani) | — | — |
 | 10b | ~~Non-Indian-model stock placeholders~~ — resolved by retiring all placeholder products (draft) on 2026-09-27 | — | — |
 | 11 | Size guide generic (XS–3XL ranges) | Brand's real measurement chart | Size-guide accuracy |
-| 12 | ~~Domain DNS~~ — DONE: www.knottyaffairsbymridul.com live on the platform (cut over ~2026-08-31) | SEO Co-Pilot install with `config.phone` if not yet done | SEO surface |
+| 12 | ~~Domain DNS~~ — DONE: www.knottyaffairsbymridul.com live (cut over ~2026-08-31). ~~SEO Co-Pilot~~ — INSTALLED 2026-09-28 (free tier; businessType store, phone, IN, target audience; first audit 88/100, both warnings fixed). Google Search Console is NOT connected — needs Mridul's Google account (Connect Google on the SEO dashboard); Bing token likewise | GSC/Bing connection by the customer; street address for LocalBusiness schema (row 6) | Search Console reports, sitemap submission |
 
 ## DNS records for go-live (add in Hostinger hPanel → DNS)
 
