@@ -61,7 +61,7 @@ jobs:
       - name: Build with OpenNext
         # Next 15 left the 2-year support window (Oct 2026); OpenNext now refuses it.
         # Temporary until the site moves to Next 16 — on the latest 15.5.x patch meanwhile.
-        run: npx @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion
+        run: npx @opennextjs/cloudflare build
 
       - name: Deploy to Workers
         id: deploy
