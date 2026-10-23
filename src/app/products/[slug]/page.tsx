@@ -231,6 +231,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               product={product}
               primaryImageUrl={primaryImage?.url}
               primaryImageAlt={primaryImage?.alt || product.name}
+              categoryName={categoryName}
             />
           </div>
 

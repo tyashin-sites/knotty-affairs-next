@@ -5,15 +5,18 @@ import { useRouter } from 'next/navigation';
 import { useCart, useStore, toast, toastError } from '@/components/Providers';
 import { formatPrice, isPriceOnRequest, PRICE_ON_REQUEST_LABEL } from '@/lib/format';
 import { whatsappLink } from '@/lib/seo';
+import SizeGuide from '@/components/SizeGuide';
 import type { ApiProduct } from '@/lib/types';
 
 interface Props {
   product: ApiProduct;
   primaryImageUrl?: string;
   primaryImageAlt?: string;
+  /** Category name — picks which size chart(s) the guide opens on. */
+  categoryName?: string;
 }
 
-export default function ProductDetailClient({ product }: Props) {
+export default function ProductDetailClient({ product, categoryName }: Props) {
   const { addToCart } = useCart();
   const { store } = useStore();
   const router = useRouter();
@@ -180,6 +183,9 @@ export default function ProductDetailClient({ product }: Props) {
             </div>
           ))}
 
+        {/* Always-visible entry to the full chart — no typing needed to read it. */}
+        <SizeGuide productName={product.name} categoryName={categoryName} />
+
         {/* Quantity */}
         {!onRequest && (
         <div className="mt-6">
@@ -217,9 +223,8 @@ export default function ProductDetailClient({ product }: Props) {
             (DESIGN-SPEC PDP blueprint). Number from the central SITE config. */}
         <a
           href={whatsappLink(
-            onRequest
-              ? `Hi Knotty Affairs! I'd like the price and sizes for "${product.name}".`
-              : `Hi Knotty Affairs! I have a question about "${product.name}".`,
+            // Customer-specified wording (2026-10-23); the name is always the live product's.
+            `Hi, I really love the Knotty Affairs by Mridul Collection. Is “${product.name}” available?`,
           )}
           target="_blank"
           rel="noopener noreferrer"
